@@ -1,3 +1,7 @@
+"use client";
+
+import HeroComponent from "./components/HeroComp";
+
 export default function Home() {
-  return <div>Journey Junction</div>;
+  return <HeroComponent />;
 }

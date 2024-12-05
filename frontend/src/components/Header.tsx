@@ -56,20 +56,24 @@ export default function Header() {
 
           {/* User Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-4 py-2 rounded-md bg-myprimary text-white hover:bg-opacity-90 transition-colors"
-            >
-              Login
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-4 py-2 rounded-md border border-mysecondary text-mysecondary hover:bg-mysecondary hover:text-white transition-colors"
-            >
-              Sign Up
-            </motion.button>
+            <Link href={"/login"}>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-4 py-2 rounded-md bg-myprimary text-white hover:bg-opacity-90 transition-colors"
+              >
+                Login
+              </motion.button>
+            </Link>
+            <Link href={"/signup"}>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-4 py-2 rounded-md border border-mysecondary text-mysecondary hover:bg-mysecondary hover:text-white transition-colors"
+              >
+                Sign Up
+              </motion.button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -127,20 +131,24 @@ export default function Header() {
                 Contact
               </Link>
               <div className="pt-4 flex flex-col space-y-2">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 py-2 rounded-full bg-myprimary text-white hover:bg-opacity-90 transition-colors"
-                >
-                  Login
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 py-2 rounded-full border border-myprimary text-myprimary hover:bg-myprimary hover:text-white transition-colors"
-                >
-                  Sign Up
-                </motion.button>
+                <Link href={"/login"}>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-4 py-2 rounded-full bg-myprimary text-white hover:bg-opacity-90 transition-colors"
+                  >
+                    Login
+                  </motion.button>
+                </Link>
+                <Link href={"/signup"}>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-4 py-2 rounded-full border border-myprimary text-myprimary hover:bg-myprimary hover:text-white transition-colors"
+                  >
+                    Sign Up
+                  </motion.button>
+                </Link>
               </div>
             </div>
           </motion.div>

@@ -12,6 +12,6 @@ userRouter.post(
   createUser as RequestHandler
 );
 
-userRouter.post("/login", loginUser);
+userRouter.post("/login", loginUser as RequestHandler);
 
 export default userRouter;

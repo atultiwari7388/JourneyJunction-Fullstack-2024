@@ -71,13 +71,13 @@ export async function loginUser(
   res: Response,
   next: NextFunction
 ) {
-  const { email, password } = req.body;
-
-  //check email and password are filled or not
-  if (!email || !password) {
-    const error = createHttpError(400, "Email and password are required");
-    return next(error);
+  // Check validation results from loginValidation middleware
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
+
+  const { email, password } = req.body;
 
   //check user exists in database or not
   try {

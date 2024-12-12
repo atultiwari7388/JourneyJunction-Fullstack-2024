@@ -1,5 +1,5 @@
 import express, { RequestHandler } from "express";
-import { createUser } from "./user.controller";
+import { createUser, loginUser } from "./user.controller";
 import { createUserValidation } from "./userValidation";
 
 const userRouter = express.Router();
@@ -11,5 +11,7 @@ userRouter.post(
   createUserValidation,
   createUser as RequestHandler
 );
+
+userRouter.post("/login", loginUser);
 
 export default userRouter;

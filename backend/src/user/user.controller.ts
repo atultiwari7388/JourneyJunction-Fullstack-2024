@@ -6,6 +6,7 @@ import { sign } from "jsonwebtoken";
 import { config } from "../config/config";
 import { validationResult } from "express-validator";
 
+//create User
 export async function createUser(
   req: Request,
   res: Response,
@@ -58,6 +59,54 @@ export async function createUser(
         `Error while signing the jwt token ${error}`
       );
       return next(err);
+    }
+  } catch (error) {
+    next(error);
+  }
+}
+
+//login user
+export async function loginUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { email, password } = req.body;
+
+  //check email and password are filled or not
+  if (!email || !password) {
+    const error = createHttpError(400, "Email and password are required");
+    return next(error);
+  }
+
+  //check user exists in database or not
+  try {
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return next(createHttpError(404, "User not found"));
+    }
+
+    //check password is matched or not
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    if (!isPasswordMatch) {
+      return next(createHttpError(401, "Invalid password"));
+    }
+
+    //create accesstoken
+    try {
+      const token = sign({ sub: user._id }, config.jwtSecret as string, {
+        expiresIn: "7d",
+        algorithm: "HS256",
+      });
+
+      res.status(200).json({
+        accessToken: token,
+        message: "User logged in successfully",
+        user: user,
+      });
+    } catch (error) {
+      next(error);
     }
   } catch (error) {
     next(error);

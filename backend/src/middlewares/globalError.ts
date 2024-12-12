@@ -15,7 +15,7 @@ const globalErrorHandler: ErrorRequestHandler = (
 
   res.status(statusCode).json({
     message: errorMessage,
-    errorStack: config.env === "Development" ? (err as HttpError).stack : "",
+    errorStack: config.env === "development" ? (err as HttpError).stack : "",
   });
 };
 

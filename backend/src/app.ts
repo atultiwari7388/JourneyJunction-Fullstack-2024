@@ -3,6 +3,7 @@ import globalErrorHandler from "./middlewares/globalError";
 import userRouter from "./user/user.router";
 
 const app = express();
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Journey Junction");

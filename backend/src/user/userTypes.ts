@@ -6,6 +6,7 @@ interface ISocialLink {
 }
 
 export interface IUser {
+  _id: string;
   email: string;
   userName: string;
   name: string;

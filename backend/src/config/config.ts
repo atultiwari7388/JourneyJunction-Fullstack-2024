@@ -8,6 +8,7 @@ const _config = {
   env: process.env.NODE_ENV,
   jwtSecret: process.env.JWT_SECRET,
   bcryptSaltRounds: process.env.BCRYPT_SALT_ROUNDS,
+  frontendURL: process.env.FRONTEND_URL,
 };
 
 export const config = Object.freeze(_config);

@@ -29,7 +29,7 @@ export default function LoginPage() {
   };
 
   return (
-    <section className="min-h-[80vh] flex justify-center items-center px-4 py-12">
+    <section className="min-h-[80vh] flex justify-center items-center px-4 py-3">
       <div className="min-h-screen flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-2xl w-96">
           <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">

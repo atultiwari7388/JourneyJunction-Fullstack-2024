@@ -1,76 +1,182 @@
-export default function SignUpPage() {
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa6";
+import { HashLoader } from "react-spinners";
+
+export default function RegisterPage() {
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((preve) => ({
+      ...preve,
+      [name]: value,
+    }));
+  };
+
+  const valideValue = Object.values(data).every((el) => el);
+
+  const handleSubmit = async (e: unknown | any) => {
+    e.preventDefault();
+    if (data.password !== data.confirmPassword) {
+      toast.error("Password and Confirm Password must be the same");
+      return;
+    }
+    setIsLoading(true);
+    // try {
+    //   const response = await Axios({
+    //     ...SummaryApi.register,
+    //     data: data,
+    //   });
+
+    //   if (response.data.error) {
+    //     toast.error(response.data.error);
+    //   }
+    //   if (response.data.success) {
+    //     toast.success(response.data.message);
+    //     setData({
+    //       name: "",
+    //       email: "",
+    //       password: "",
+    //       confirmPassword: "",
+    //     });
+    //     // navigate("/login");
+    //   }
+    // } catch (error) {
+    // } finally {
+    //   setIsLoading(false);
+    // }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-myprimary">
-      <div className="bg-white p-8 rounded-lg shadow-2xl w-96 transform hover:scale-105 transition duration-300">
-        <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-          Create Account
+    <section className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
+      <div className="bg-white w-full max-w-lg rounded-lg shadow-lg p-8">
+        <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
+          Create an Account
         </h1>
 
-        <form className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
+        <form className="space-y-5" onSubmit={handleSubmit}>
+          <div className="relative">
+            <label
+              htmlFor="name"
+              className="text-sm font-semibold text-gray-600"
+            >
               Full Name
             </label>
             <input
               type="text"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-mysecondary focus:border-mysecondary"
-              placeholder="Enter your full name"
+              id="name"
+              name="name"
+              value={data.name}
+              onChange={handleChange}
+              placeholder="John Doe"
+              className="mt-1 w-full p-3 border border-gray-300 rounded  focus:ring-myprimary focus:border-myprimary outline-none transition"
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Email
+          <div className="relative">
+            <label
+              htmlFor="email"
+              className="text-sm font-semibold text-gray-600"
+            >
+              Email Address
             </label>
             <input
               type="email"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-mysecondary focus:border-mysecondary"
-              placeholder="Enter your email"
+              id="email"
+              name="email"
+              value={data.email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              className="mt-1 w-full p-3 border border-gray-300 rounded  focus:ring-myprimary focus:border-myprimary outline-none transition"
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
+          <div className="relative">
+            <label
+              htmlFor="password"
+              className="text-sm font-semibold text-gray-600"
+            >
               Password
             </label>
-            <input
-              type="password"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-mysecondary focus:border-mysecondary"
-              placeholder="Create a password"
-            />
+            <div className="mt-1 w-full p-3 border border-gray-300 rounded flex items-center  focus-within:ring-myprimary focus-within:border-myprimary">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={data.password}
+                onChange={handleChange}
+                placeholder="••••••••"
+                className="w-full outline-none"
+              />
+              <div
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="cursor-pointer ml-2 text-gray-500"
+              >
+                {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+              </div>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
+          <div className="relative">
+            <label
+              htmlFor="confirmPassword"
+              className="text-sm font-semibold text-gray-600"
+            >
               Confirm Password
             </label>
-            <input
-              type="password"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-mysecondary focus:border-mysecondary"
-              placeholder="Confirm your password"
-            />
+            <div className="mt-1 w-full p-3 border border-gray-300 rounded flex items-center  focus-within:ring-myprimary focus-within:border-myprimary">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                id="confirmPassword"
+                name="confirmPassword"
+                value={data.confirmPassword}
+                onChange={handleChange}
+                placeholder="••••••••"
+                className="w-full outline-none"
+              />
+              <div
+                onClick={() => setShowConfirmPassword((prev) => !prev)}
+                className="cursor-pointer ml-2 text-gray-500"
+              >
+                {showConfirmPassword ? <FaRegEye /> : <FaRegEyeSlash />}
+              </div>
+            </div>
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-white bg-mysecondary hover:bg-myprimary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mysecondary transition duration-150 transform hover:-translate-y-1"
+            disabled={!valideValue || isLoading}
+            className={`w-full py-3 rounded-md text-white font-semibold tracking-wide ${
+              valideValue ? "bg-myprimary" : "bg-gray-400 cursor-not-allowed"
+            } transition-all flex justify-center items-center`}
           >
-            Sign Up
+            {isLoading ? (
+              <HashLoader color="#fff" size={24} /> // Show HashLoader if loading
+            ) : (
+              "Register"
+            )}
           </button>
         </form>
 
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            Already have an account?{" "}
-            <a
-              href="/login"
-              className="text-mysecondary hover:text-myprimary font-medium"
-            >
-              Sign In
-            </a>
-          </p>
-        </div>
+        <p className="text-center text-sm text-mysecondary mt-5">
+          Already have an account?{" "}
+          <Link href="/login" className="text-myprimary font-semibold">
+            Login
+          </Link>
+        </p>
       </div>
-    </div>
+    </section>
   );
 }

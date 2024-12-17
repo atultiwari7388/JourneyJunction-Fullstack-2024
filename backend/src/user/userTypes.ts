@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-interface ISocialLink {
+export interface ISocialLink {
   platform: "facebook" | "twitter" | "instagram" | "linkedin";
   url: string;
 }

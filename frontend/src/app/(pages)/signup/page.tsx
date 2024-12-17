@@ -1,5 +1,7 @@
 "use client";
 
+import { ApiLists } from "@/common/Api";
+import { Axios } from "@/utils/Axios";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -34,29 +36,29 @@ export default function RegisterPage() {
       return;
     }
     setIsLoading(true);
-    // try {
-    //   const response = await Axios({
-    //     ...SummaryApi.register,
-    //     data: data,
-    //   });
+    try {
+      const response = await Axios({
+        ...ApiLists.register,
+        data: data,
+      });
 
-    //   if (response.data.error) {
-    //     toast.error(response.data.error);
-    //   }
-    //   if (response.data.success) {
-    //     toast.success(response.data.message);
-    //     setData({
-    //       name: "",
-    //       email: "",
-    //       password: "",
-    //       confirmPassword: "",
-    //     });
-    //     // navigate("/login");
-    //   }
-    // } catch (error) {
-    // } finally {
-    //   setIsLoading(false);
-    // }
+      if (response.data.error) {
+        toast.error(response.data.error);
+      }
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setData({
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
+        // navigate("/login");
+      }
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
